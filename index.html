@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>AR Video con MindAR</title>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar/dist/mindar-image-three.prod.js"></script>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; }
+    canvas { position: absolute; top: 0; left: 0; }
+  </style>
+</head>
+<body>
+  <script type="module">
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js";
+
+    const mindarThree = new window.MINDAR.IMAGE.MindARThree({
+      container: document.body,
+      imageTargetSrc: "./target.mind", // tu marcador
+    });
+
+    const { renderer, scene, camera } = mindarThree;
+
+    // 🎥 Crear el video como textura
+    const video = document.createElement("video");
+    video.src = "./flores.mp4"; // tu archivo de video
+    video.crossOrigin = "anonymous";
+    video.loop = true;
+    video.muted = false; // en móviles puede necesitar interacción de usuario
+    video.playsInline = true;
+
+    const texture = new THREE.VideoTexture(video);
+
+    const geometry = new THREE.PlaneGeometry(1, 0.56); // ancho/alto ajusta a tu video
+    const material = new THREE.MeshBasicMaterial({ map: texture });
+    const plane = new THREE.Mesh(geometry, material);
+
+    // Vincular al target (imagen)
+    const anchor = mindarThree.addAnchor(0); // primer target
+    anchor.group.add(plane);
+
+    // Botón para empezar
+    const start = async () => {
+      await mindarThree.start();
+      renderer.setAnimationLoop(() => {
+        renderer.render(scene, camera);
+      });
+      video.play(); // empieza el video
+    };
+
+    document.body.addEventListener("click", () => {
+      start();
+    });
+  </script>
+</body>
+</html>
