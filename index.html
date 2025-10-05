@@ -7,13 +7,13 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: target.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <video id="flores" autoplay loop="true" src="flores.mp4"></video>
+        <video id="flores" autoplay loop="true" src="flores.mp4" playsinline></video>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-video src="#flores" width="16" height="9" position="0 0 -20"></a-video>
+        <a-video src="#flores" width="16" height="8" position="0 0 0"></a-video>
       </a-entity>
     </a-scene>
   </body>
