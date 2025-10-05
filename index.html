@@ -9,11 +9,11 @@
       init: function () {
         this.el.addEventListener('targetFound', event => {
           console.log("target found")
-          document.querySelector("#video").play();
+          document.querySelector("#flores").play();
         })
         this.el.addEventListener('targetLost', event => {
           console.log("target lost")
-          document.querySelector("#video").pause();
+          document.querySelector("#flores").pause();
         })
       }
     });
@@ -21,7 +21,7 @@
   <body>
     <a-scene mindar-image="imageTargetSrc: target.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <video id="flores" preload="auto" loop="true" playsinline webkit-playsinline src="flores.mp4"></video>
+        <video id="flores" preload loop playsinline webkit-playsinline src="flores.webm"></video>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
